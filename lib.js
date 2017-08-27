@@ -1,6 +1,7 @@
 'use strict';
 
 const countries = require('./countries.json');
+const countriesRu = require('./countries.ru.json');
 
 const MAGIC_NUMBER = 127462 - 65;
 
@@ -90,14 +91,21 @@ function nameToCode(name) {
   return;
 }
 
-function codeToName(code) {
+function codeToName(code, locale) {
   if (!code || !CODE_RE.test(code)) {
     return;
   }
 
-  const names = countries[code.toUpperCase()];
-  if (Array.isArray(names)) {
-    return names[0];
+  if (locale === 'ru') {
+    const names = countriesRu[code.toUpperCase()];
+    if (Array.isArray(names)) {
+        return names[0];
+    }
+  } else {
+    const names = countries[code.toUpperCase()];
+    if (Array.isArray(names)) {
+      return names[0];
+    }
   }
 
   return names;
@@ -139,12 +147,12 @@ function flag(input) {
 }
 
 // takes either emoji or code
-function name(input) {
+function name(input, locale) {
   if (FLAG_RE.test(input)) {
     input = flagToCode(input);
   }
 
-  return codeToName(input);
+  return codeToName(input, locale);
 }
 
 module.exports = {

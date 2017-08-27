@@ -96,16 +96,17 @@ function codeToName(code, locale) {
     return;
   }
 
+  var names = ''
   if (locale === 'ru') {
-    const names = countriesRu[code.toUpperCase()];
-    if (Array.isArray(names)) {
-        return names[0];
-    }
+      names = countriesRu[code.toUpperCase()];
+      if (Array.isArray(names)) {
+          return names[0];
+      }
   } else {
-    const names = countries[code.toUpperCase()];
-    if (Array.isArray(names)) {
-      return names[0];
-    }
+      names = countries[code.toUpperCase()];
+      if (Array.isArray(names)) {
+          return names[0];
+      }
   }
 
   return names;
